@@ -15,17 +15,15 @@ app.get('/', (req, res) => {
 
 // ESTA ES LA RUTA QUE TE PIDE FREECODECAMP
 app.post('/api/fileanalyse', upload.single('upfile'), (req, res) => {
-  const file = req.file;
-
-  if (!file) {
-    return res.json({ error: "No file uploaded" });
+  if (!req.file) {
+    return res.json({ error: 'No file uploaded' });
   }
 
-  // Los nombres de las propiedades DEBEN ser estos:
+  // Las llaves DEBEN ser name, type y size (en minúsculas)
   res.json({
-    name: file.originalname,
-    type: file.mimetype,
-    size: file.size // Asegúrate de que no esté entre comillas
+    name: req.file.originalname,
+    type: req.file.mimetype,
+    size: req.file.size
   });
 });
 
