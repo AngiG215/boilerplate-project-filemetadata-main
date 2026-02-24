@@ -17,7 +17,7 @@ app.get('/', (req, res) => {
 app.post('/api/fileanalyse', upload.single('upfile'), (req, res) => {
   // Verificamos que el archivo exista para evitar errores
   if (!req.file) {
-    return res.json({ error: 'Archivo no encontrado' });
+    return res.json({ error: "No file uploaded" });
   }
 
   // Los nombres de las llaves deben ser exactamente estos y en minúsculas
