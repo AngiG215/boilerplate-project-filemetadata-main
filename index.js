@@ -1,10 +1,10 @@
 var express = require('express');
 var cors = require('cors');
-var multer = require('multer'); // Importamos multer
+var multer = require('multer'); // Puedes usar var aquí también
 require('dotenv').config();
 
 var app = express();
-var upload = multer({ dest: 'uploads/' });// Configuración básica de subida
+var upload = multer({ dest: 'uploads/' }); // Configuramos multer
 
 app.use(cors());
 app.use('/public', express.static(process.cwd() + '/public'));
@@ -13,14 +13,13 @@ app.get('/', function (req, res) {
   res.sendFile(process.cwd() + '/views/index.html');
 });
 
-// ESTA ES LA RUTA QUE TE PIDE FREECODECAMP
-app.post('/api/fileanalyse', upload.single('upfile'), (req, res) => {
-  // Verificamos que el archivo exista para evitar errores
+// ESTA ES LA RUTA QUE TE FALTA APROBAR
+app.post('/api/fileanalyse', upload.single('upfile'), function(req, res) {
   if (!req.file) {
-    return res.json({ error: "No file uploaded" });
+    return res.json({ error: "No file" });
   }
-
-  // Los nombres de las llaves deben ser exactamente estos y en minúsculas
+  
+  // El test 4 busca este objeto exactamente
   res.json({
     name: req.file.originalname,
     type: req.file.mimetype,
@@ -28,7 +27,7 @@ app.post('/api/fileanalyse', upload.single('upfile'), (req, res) => {
   });
 });
 
-const port = process.env.PORT || 3000;
+var port = process.env.PORT || 3000;
 app.listen(port, function () {
-  console.log('Tu app está escuchando en el puerto ' + port);
+  console.log('Your app is listening on port ' + port);
 });
