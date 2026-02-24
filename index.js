@@ -15,11 +15,12 @@ app.get('/', (req, res) => {
 
 // ESTA ES LA RUTA QUE TE PIDE FREECODECAMP
 app.post('/api/fileanalyse', upload.single('upfile'), (req, res) => {
+  // Verificamos que el archivo exista para evitar errores
   if (!req.file) {
-    return res.json({ error: 'No file uploaded' });
+    return res.json({ error: 'Archivo no encontrado' });
   }
 
-  // Las llaves DEBEN ser name, type y size (en minúsculas)
+  // Los nombres de las llaves deben ser exactamente estos y en minúsculas
   res.json({
     name: req.file.originalname,
     type: req.file.mimetype,
