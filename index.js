@@ -17,15 +17,20 @@ app.get('/', function (req, res) {
 });
 
 // Esta ruta debe devolver exactamente name, type y size
+// El nombre 'upfile' debe coincidir con el atributo 'name' de tu HTML
 app.post('/api/fileanalyse', upload.single('upfile'), function (req, res) {
-  if (!req.file) {
+  var file = req.file;
+
+  // Si el usuario no seleccionó ningún archivo
+  if (!file) {
     return res.json({ error: "No file uploaded" });
   }
 
+  // ESTA ES LA RESPUESTA QUE EL TEST BUSCA (Punto 4)
   res.json({
-    name: req.file.originalname,
-    type: req.file.mimetype,
-    size: req.file.size
+    name: file.originalname, // Nombre del archivo (ej: "foto.jpg")
+    type: file.mimetype,     // Tipo de archivo (ej: "image/jpeg")
+    size: file.size         // Tamaño en bytes (ej: 12345)
   });
 });
 
