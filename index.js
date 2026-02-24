@@ -1,3 +1,6 @@
+const multer = require('multer');
+const upload = multer({ dest: 'uploads/' });
+
 var express = require('express');
 var cors = require('cors');
 require('dotenv').config()
@@ -11,6 +14,19 @@ app.get('/', function (req, res) {
   res.sendFile(process.cwd() + '/views/index.html');
 });
 
+// 'upfile' es el nombre que pide el test en el atributo name del input
+app.post('/api/fileanalyse', upload.single('upfile'), (req, res) => {
+  if (!req.file) {
+    return res.json({ error: "No se subió ningún archivo" });
+  }
+
+  // El objeto req.file contiene toda la información que necesitamos
+  res.json({
+    name: req.file.originalname,
+    type: req.file.mimetype,
+    size: req.file.size
+  });
+});
 
 
 
