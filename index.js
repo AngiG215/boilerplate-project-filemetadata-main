@@ -4,7 +4,10 @@ var multer = require('multer');
 require('dotenv').config();
 
 var app = express();
-var upload = multer({ dest: 'uploads/' });
+
+// CONFIGURACIÓN CLAVE: Usar memoria en lugar de carpeta 'uploads'
+var storage = multer.memoryStorage();
+var upload = multer({ storage: storage });
 
 app.use(cors());
 app.use('/public', express.static(process.cwd() + '/public'));
@@ -13,22 +16,20 @@ app.get('/', function (req, res) {
   res.sendFile(process.cwd() + '/views/index.html');
 });
 
-// Ruta para el análisis de archivos
+// Esta ruta debe devolver exactamente name, type y size
 app.post('/api/fileanalyse', upload.single('upfile'), function (req, res) {
-  var file = req.file;
-  
-  if (!file) {
-    return res.json({ error: "File not found" });
+  if (!req.file) {
+    return res.json({ error: "No file uploaded" });
   }
 
   res.json({
-    name: file.originalname,
-    type: file.mimetype,
-    size: file.size
+    name: req.file.originalname,
+    type: req.file.mimetype,
+    size: req.file.size
   });
-}); // <--- ¡Asegúrate de que esta llave esté!
+});
 
 var port = process.env.PORT || 3000;
 app.listen(port, function () {
   console.log('Your app is listening on port ' + port);
-}); // <--- Y esta también!
+});
