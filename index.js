@@ -27,11 +27,10 @@ app.post('/api/fileanalyse', upload.single('upfile'), function (req, res) {
 
   // ESTA RESPUESTA ES LA CLAVE DEL ÉXITO:
   // Los nombres 'name', 'type' y 'size' deben estar así, sin mayúsculas.
-  res.json({
-    name: file.originalname,
-    type: file.mimetype,
-    size: file.size
-  });
+ res.json({
+  name: req.file.originalname,
+  type: req.file.mimetype,
+  size: req.file.size
 });
 
 var port = process.env.PORT || 3000;
