@@ -4,29 +4,31 @@ var multer = require('multer');
 require('dotenv').config();
 
 var app = express();
+var upload = multer({ dest: 'uploads/' });
 
-// 1. PRIMERO LOS PERMISOS
 app.use(cors());
-
-// 2. LUEGO LOS ARCHIVOS ESTÁTICOS
 app.use('/public', express.static(process.cwd() + '/public'));
-
-// 3. CONFIGURACIÓN DE MULTER (En memoria para evitar errores de carpetas en Render)
-var upload = multer({ storage: multer.memoryStorage() });
 
 app.get('/', function (req, res) {
   res.sendFile(process.cwd() + '/views/index.html');
 });
 
-// 4. LA RUTA (Usa 'req.file' con cuidado)
+// Ruta para el análisis de archivos
 app.post('/api/fileanalyse', upload.single('upfile'), function (req, res) {
-  if (!req.file) {
-    return res.json({ error: 'No file uploaded' });
+  var file = req.file;
+  
+  if (!file) {
+    return res.json({ error: "File not found" });
   }
 
   res.json({
-    name: req.file.originalname,
-    type: req.file.mimetype,
-    size: req.file.size
+    name: file.originalname,
+    type: file.mimetype,
+    size: file.size
   });
-});
+}); // <--- ¡Asegúrate de que esta llave esté!
+
+var port = process.env.PORT || 3000;
+app.listen(port, function () {
+  console.log('Your app is listening on port ' + port);
+}); // <--- Y esta también!
