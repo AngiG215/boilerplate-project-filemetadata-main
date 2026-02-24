@@ -3,8 +3,7 @@
   "version": "0.0.1",
   "description": "API project for freeCodeCamp",
   "main": "index.js",
-  },
-  "scripts": {
+ "scripts": {
     "start": "node index.js"
   },
   "dependencies": {
@@ -12,6 +11,7 @@
     "dotenv": "^8.2.0",
     "express": "^4.16.4",
     "multer": "^1.4.5-lts.1"
+   },
   
   "repository": {
     "type": "git",
