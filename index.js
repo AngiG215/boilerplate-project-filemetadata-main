@@ -5,7 +5,7 @@ require('dotenv').config();
 
 var app = express();
 
-// CONFIGURACIÓN CLAVE: Usar memoria en lugar de carpeta 'uploads'
+// Usamos memoria para que sea ultra rápido y no falle en Render
 var storage = multer.memoryStorage();
 var upload = multer({ storage: storage });
 
@@ -16,21 +16,18 @@ app.get('/', function (req, res) {
   res.sendFile(process.cwd() + '/views/index.html');
 });
 
-// Esta ruta debe devolver exactamente name, type y size
-// El nombre 'upfile' debe coincidir con el atributo 'name' de tu HTML
+// ESTA ES LA RUTA FINAL
 app.post('/api/fileanalyse', upload.single('upfile'), function (req, res) {
-  var file = req.file;
-
-  // Si el usuario no seleccionó ningún archivo
-  if (!file) {
+  // Verificamos que el archivo exista para que no explote la app
+  if (!req.file) {
     return res.json({ error: "No file uploaded" });
   }
 
-  // ESTA ES LA RESPUESTA QUE EL TEST BUSCA (Punto 4)
+  // El test 4 es extremadamente estricto con estos 3 nombres:
   res.json({
-    name: file.originalname, // Nombre del archivo (ej: "foto.jpg")
-    type: file.mimetype,     // Tipo de archivo (ej: "image/jpeg")
-    size: file.size         // Tamaño en bytes (ej: 12345)
+    name: req.file.originalname,
+    type: req.file.mimetype,
+    size: req.file.size
   });
 });
 
