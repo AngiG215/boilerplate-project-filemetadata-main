@@ -4,7 +4,7 @@ const multer = require('multer'); // Importamos multer
 require('dotenv').config();
 
 const app = express();
-const upload = multer({ dest: 'uploads/' }); // Configuración básica de subida
+const upload = multer({ dest: 'uploads/' });// Configuración básica de subida
 
 app.use(cors());
 app.use('/public', express.static(process.cwd() + '/public'));
