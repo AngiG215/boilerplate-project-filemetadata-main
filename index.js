@@ -7,7 +7,7 @@ var app = express();
 
 // Usamos memoria para que sea ultra rápido y no falle en Render
 var storage = multer.memoryStorage();
-var upload = multer({ storage: storage });
+var upload = multer({ storage: multer.memoryStorage() });
 
 app.use(cors());
 app.use('/public', express.static(process.cwd() + '/public'));
