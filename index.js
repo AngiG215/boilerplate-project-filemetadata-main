@@ -17,7 +17,7 @@ app.get('/', function (req, res) {
 });
 
 // ESTA ES LA RUTA FINAL
- app.post('/upload', upload.single('myfile'), (req, res) => {
+ app.post('/upload', upload.single('file'), (req, res) => {
   // SEGURIDAD: Si no hay archivo, respondemos error antes de seguir
   if (!req.file) {
     return res.status(400).json({ error: "No se envió ningún archivo" });
