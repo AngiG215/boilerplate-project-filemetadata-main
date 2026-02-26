@@ -25,8 +25,8 @@ app.get('/', function (req, res) {
 
   // LA FÓRMULA CORRECTA (Sin paréntesis, solo llaves)
   res.json({
-    name: req.file.originalname, 
-    type: req.file.mimetype,
+    name: req.file.name, 
+    type: req.file.type,
     size: req.file.size
   });
 });/ Se envía como JSON
