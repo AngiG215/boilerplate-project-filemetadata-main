@@ -1,20 +1,25 @@
 const express = require('express');
-const multer  = require('multer');
 const cors = require('cors');
-
+const multer = require('multer'); // Necesario para procesar el archivo
 const app = express();
-const upload = multer();
+
+const upload = multer(); // Configuración básica para guardar en memoria
 
 app.use(cors());
-app.use(express.json());
+app.use('/public', express.static(process.cwd() + '/public'));
 
-// Esta es la ruta que procesa el archivo
+app.get('/', (req, res) => {
+  res.sendFile(process.cwd() + '/views/index.html');
+});
+
+// CUMPLIMIENTO DE PUNTOS 3 Y 4:
+// El nombre 'upfile' debe coincidir con el atributo name del formulario
 app.post('/api/fileanalyse', upload.single('upfile'), (req, res) => {
   if (!req.file) {
-    return res.status(400).json({ error: "No file uploaded" });
+    return res.json({ error: "No se seleccionó ningún archivo" });
   }
 
-  // La respuesta JSON que te pide el ejercicio
+  // Respuesta JSON con name, type y size
   res.json({
     name: req.file.originalname,
     type: req.file.mimetype,
@@ -22,8 +27,7 @@ app.post('/api/fileanalyse', upload.single('upfile'), (req, res) => {
   });
 });
 
-// Configuración del puerto para Render
 const port = process.env.PORT || 10000;
 app.listen(port, () => {
-  console.log(`Servidor corriendo en puerto ${port}`);
+  console.log('Servidor funcionando en el puerto ' + port);
 });
