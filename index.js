@@ -20,14 +20,15 @@ app.get('/', function (req, res) {
   // Verificamos que el archivo exista para que no explote la app
  app.post('/api/fileanalyse', upload.single('upfile'), (req, res) => {
   if (!req.file) {
-    return res.json({ error: "No se subió ningún archivo" });
+    return res.json({ error: "No file was uploaded" });
   }
 
- const respuesta = {
-  name: archivo.name,
-  type: archivo.type,
-  size: archivo.size // en bytes
-};
+res.json({
+    name: req.archive.originalname,
+    type: req.archive.mimetype,
+    size: req.archive.size
+  });
+});
 
 // Se envía como JSON
 res.json(respuesta); 
