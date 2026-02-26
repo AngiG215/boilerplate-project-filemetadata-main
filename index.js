@@ -20,7 +20,7 @@ app.get('/', function (req, res) {
 app.post('/api/fileanalyse', upload.single('upfile'), function (req, res) {
   // Verificamos que el archivo exista para que no explote la app
   if (!req.file) {
-    return res.json({ error: "No file uploaded" });
+  
   }
   // El test 4 es extremadamente estricto con estos 3 nombres:
  res.json({
