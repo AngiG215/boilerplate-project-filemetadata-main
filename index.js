@@ -23,11 +23,11 @@ app.post('/api/fileanalyse', upload.single('upfile'), function (req, res) {
     return res.json({ error: "No file uploaded" });
   }
   // El test 4 es extremadamente estricto con estos 3 nombres:
-  res.json{(
-    name : req.file.originalname,
-    type : req.file.mimetype,
-    size : req.file.size
-  )};
+ res.json({
+    name: req.file.originalname,
+    type: req.file.mimetype,
+    size: req.file.size
+  });
 });
 
 var port = process.env.PORT || 3000;
