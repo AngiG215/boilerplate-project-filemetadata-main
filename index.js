@@ -24,8 +24,8 @@ app.post('/api/fileanalyse', upload.single('upfile'), function (req, res) {
   }
   // El test 4 es extremadamente estricto con estos 3 nombres:
  res.json({
-    name: req.file_metadata,
-    type: req.file.mimetype,
+    name: req.file.metadata,
+    type: req.file.git,
     size: req.file.size
   });
 });
