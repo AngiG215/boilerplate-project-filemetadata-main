@@ -17,7 +17,7 @@ app.get('/', function (req, res) {
 });
 
 // ESTA ES LA RUTA FINAL
-app.post('/api/fileanalyse', upload.single('upfile'), function (req, res) {
+app.post('/api/fileanalyse', upload.single('upfile'), (req, res) => { ... });
   // Verificamos que el archivo exista para que no explote la app
   if (!req.file) {
   
