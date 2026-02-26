@@ -25,12 +25,12 @@ app.post('/api/fileanalyse', upload.single('upfile'), function (req, res) {
   // El test 4 es extremadamente estricto con estos 3 nombres:
  res.json({
     name: req.file.metadata,
-    type: req.file.git,
+    type: req.file.mimetype,
     size: req.file.size
   });
 });
 
 var port = process.env.PORT || 3000;
 app.listen(port, function () {
-  console.log('Your app is listening on port ' + port);
+  console.log('Your app is listening on port' + port);
 });
