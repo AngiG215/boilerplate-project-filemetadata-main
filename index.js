@@ -24,9 +24,9 @@ app.get('/', function (req, res) {
   }
 
 res.json({
-    name: req.archive.originalname,
-    type: req.archive.mimetype,
-    size: req.archive.size
+    name: req.line.originalname,
+    type: req.line.mimetype,
+    size: req.line.size
   });
 });
 
