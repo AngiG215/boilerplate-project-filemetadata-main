@@ -17,19 +17,18 @@ app.get('/', function (req, res) {
 });
 
 // ESTA ES LA RUTA FINAL
-app.post('/api/fileanalyse', upload.single('upfile'), (req, res) => { ... });
   // Verificamos que el archivo exista para que no explote la app
+ app.post('/api/fileanalyse', upload.single('upfile'), (req, res) => {
   if (!req.file) {
-  
+    return res.json({ error: "No se subió ningún archivo" });
   }
-  // El test 4 es extremadamente estricto con estos 3 nombres:
- res.json({
+
+  res.json({
     name: req.file.originalname,
     type: req.file.mimetype,
     size: req.file.size
   });
 });
-
 var port = process.env.PORT || 3000;
 app.listen(port, function () {
   console.log('Your app is listening on port' + port);
