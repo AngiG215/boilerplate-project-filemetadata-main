@@ -23,12 +23,14 @@ app.get('/', function (req, res) {
     return res.json({ error: "No se subió ningún archivo" });
   }
 
-  res.json({
-    name: res.file.originalname,
-    type: res.file.mimetype,
-    size: res.file.size
-  });
-});
+ const respuesta = {
+  name: archivo.name,
+  type: archivo.type,
+  size: archivo.size // en bytes
+};
+
+// Se envía como JSON
+res.json(respuesta); 
 var port = process.env.PORT || 3000;
 app.listen(port, function () {
   console.log('Your app is listening on port' + port);
