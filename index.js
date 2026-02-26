@@ -4,6 +4,7 @@ var multer = require('multer');
 require('dotenv').config();
 
 var app = express();
+app.use(express.json()); // Crucial para que el paso 4 funcione
 // Usamos memoria para que sea ultra rápido y no falle en Render
 var storage = multer.memoryStorage();
 var upload = multer();
@@ -27,8 +28,7 @@ app.get('/', function (req, res) {
     name: req.file.name, 
     type: req.file.type,
     size: req.file.size
-  });
-});/ Se envía como JSON
+  });// Se envía como JSON
 
 var port = process.env.PORT || 3000;
 app.listen(port, function () {
