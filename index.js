@@ -11,7 +11,7 @@ var upload = multer();
 
 app.use(cors());
 app.use('/public', express.static(process.cwd() + '/public'));
-app.use(express.json()); // Crucial para que el paso 4 funcione
+
 app.get('/', function (req, res) {
   res.sendFile(process.cwd() + '/views/index.html');
 });
