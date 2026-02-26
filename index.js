@@ -23,13 +23,13 @@ app.get('/', function (req, res) {
     return res.json({ error: "No file was uploaded" });
   }
 
-res.json({
-    name: req.file.originalname,
-    type: req.file.mimetype,
-    size: req.file.size
-  });
+const respuesta = {
+    name: req.file.originalname, // Nombre original
+    type: req.file.mimetype,     // Tipo (ej. image/png)
+    size: req.file.size          // Tamaño en bytes
+  };
+res.json(respuesta);
 });
-
 // Se envía como JSON
 
 var port = process.env.PORT || 3000;
