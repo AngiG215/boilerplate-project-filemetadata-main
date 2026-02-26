@@ -15,15 +15,17 @@ app.get('/', (req, res) => {
 // CUMPLIMIENTO DE PUNTOS 3 Y 4:
 // El nombre 'upfile' debe coincidir con el atributo name del formulario
 app.post('/api/fileanalyse', upload.single('upfile'), (req, res) => {
-  if (!req.file) {
-    return res.json({ error: "No se seleccionó ningún archivo" });
+  const file = req.file;
+  
+  if (!file) {
+    return res.status(400).send('No se subió ningún archivo');
   }
 
-  // Respuesta JSON con name, type y size
+  // Los campos deben llamarse exactamente así:
   res.json({
-    name: req.file.originalname,
-    type: req.file.mimetype,
-    size: req.file.size
+    name: file.originalname,
+    type: file.mimetype,
+    size: file.size
   });
 });
 
