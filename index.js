@@ -31,7 +31,7 @@ res.json({
 });
 
 // Se envía como JSON
-res.json(respuesta); 
+
 var port = process.env.PORT || 3000;
 app.listen(port, function () {
   console.log('Your app is listening on port' + port);
