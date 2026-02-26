@@ -24,9 +24,9 @@ app.get('/', function (req, res) {
   }
 
   res.json({
-    name: res.originalname,
-    type: res.mimetype,
-    size: res.size
+    name: res.file.originalname,
+    type: res.file.mimetype,
+    size: res.file.size
   });
 });
 var port = process.env.PORT || 3000;
