@@ -1,36 +1,29 @@
-var express = require('express');
-var cors = require('cors');
-var multer = require('multer');
-require('dotenv').config();
+const express = require('express');
+const multer  = require('multer');
+const cors = require('cors');
 
-var app = express();
-app.use(express.json()); // Crucial para que el paso 4 funcione
-// Usamos memoria para que sea ultra rápido y no falle en Render
-var storage = multer.memoryStorage();
-var upload = multer();
+const app = express();
+const upload = multer();
 
 app.use(cors());
-app.use('/public', express.static(process.cwd() + '/public'));
+app.use(express.json());
 
-app.get('/', function (req, res) {
-  res.sendFile(process.cwd() + '/views/index.html');
-});
-
-// ESTA ES LA RUTA FINAL
- app.post('/upload', upload.single('file'), (req, res) => {
-  // SEGURIDAD: Si no hay archivo, respondemos error antes de seguir
+// Esta es la ruta que procesa el archivo
+app.post('/api/fileanalyse', upload.single('upfile'), (req, res) => {
   if (!req.file) {
-    return res.status(400).json({ error: "No se envió ningún archivo" });
+    return res.status(400).json({ error: "No file uploaded" });
   }
 
-  // LA FÓRMULA CORRECTA (Sin paréntesis, solo llaves)
+  // La respuesta JSON que te pide el ejercicio
   res.json({
-    name: req.file.name, 
-    type: req.file.type,
+    name: req.file.originalname,
+    type: req.file.mimetype,
     size: req.file.size
-  });// Se envía como JSON
+  });
+});
 
-var port = process.env.PORT || 3000;
-app.listen(port, function () {
-  console.log('Your app is listening on port' + port);
+// Configuración del puerto para Render
+const port = process.env.PORT || 10000;
+app.listen(port, () => {
+  console.log(`Servidor corriendo en puerto ${port}`);
 });
